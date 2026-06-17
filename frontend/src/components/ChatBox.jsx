@@ -7,7 +7,7 @@ import ScratchButton from "./ScratchButton";
 import TypingIndicator from "./TypingIndicator";
 import { getOpeningMessage } from "../constants/openingMessages";
 
-const API_URL = "http://localhost:5000/chat";
+const API_URL = "https://emotion-ai-chat.onrender.com/chat";
 
 function toApiHistory(messages) {
   return messages.map((msg) => ({
