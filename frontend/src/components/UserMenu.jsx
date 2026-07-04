@@ -11,19 +11,20 @@ export default function UserMenu() {
   const initials = name.slice(0, 2).toUpperCase();
 
   return (
-    <div className="user-menu" tabIndex={0}>
-      <div className="user-menu__pill">
+    <div className="user-menu">
+      <div className="user-menu__top">
         <div className="user-menu__avatar">
           <span>{initials}</span>
         </div>
-        <span className="user-menu__name">{name}</span>
+        <div className="user-menu__text">
+          <span className="user-menu__label">Đã đăng nhập</span>
+          <span className="user-menu__name">{name}</span>
+        </div>
       </div>
 
-      <div className="user-menu__dropdown">
-        <button type="button" className="user-menu__logout" onClick={logout}>
-          Đăng xuất
-        </button>
-      </div>
+      <button type="button" className="user-menu__logout" onClick={logout}>
+        Đăng xuất
+      </button>
     </div>
   );
 }

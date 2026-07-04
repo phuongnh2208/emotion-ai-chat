@@ -1,5 +1,6 @@
 import React from "react";
 import GradientButton from "./ui/GradientButton";
+import UserMenu from "./UserMenu";
 import "../styles/GuidePanel.css";
 
 export default function GuidePanel({ instructions, onRate }) {
@@ -23,6 +24,10 @@ export default function GuidePanel({ instructions, onRate }) {
         <span className="guide-panel__sparkle guide-panel__sparkle--1">✨</span>
         <span className="guide-panel__sparkle guide-panel__sparkle--2">⭐</span>
         <p className="guide-panel__caption">Mình luôn sẵn sàng giúp bạn!</p>
+      </div>
+
+      <div className="guide-panel__footer">
+        <UserMenu />
       </div>
     </aside>
   );

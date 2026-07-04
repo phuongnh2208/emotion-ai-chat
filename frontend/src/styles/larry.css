@@ -129,6 +129,38 @@
   min-width: 0;
 }
 
+.camera-stack {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.camera-stack__menu {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.camera-stack__menu .user-menu {
+  width: 100%;
+  max-width: 320px;
+}
+
+.game-user-menu-float {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 50;
+  width: 260px;
+}
+
+.game-user-menu-float .user-menu {
+  width: 100%;
+}
+
 .panel-right {
   flex: 0 0 calc(60% - 20px);
   display: flex;

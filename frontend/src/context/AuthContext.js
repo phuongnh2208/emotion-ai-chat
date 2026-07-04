@@ -3,7 +3,16 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "https://emotion-ai-chat.onrender.com";
+
+const setAuthToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    return;
+  }
+
+  delete axios.defaults.headers.common.Authorization;
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -15,14 +24,15 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
       if (token) {
+        setAuthToken(token);
         try {
           const response = await axios.get(`${API_BASE_URL}/api/me`, {
-            headers: { Authorization: `Bearer ${token}` },
-            withCredentials: true
+            headers: { Authorization: `Bearer ${token}` }
           });
           setUser(response.data.user);
         } catch (err) {
           localStorage.removeItem("token");
+          setAuthToken(null);
           setUser(null);
         }
       }
@@ -39,10 +49,11 @@ export const AuthProvider = ({ children }) => {
         username,
         email,
         password
-      }, { withCredentials: true });
+      });
 
       const { user: userData, token } = response.data;
       localStorage.setItem("token", token);
+      setAuthToken(token);
       setUser(userData);
       return { success: true };
     } catch (err) {
@@ -58,10 +69,11 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(`${API_BASE_URL}/api/login`, {
         email,
         password
-      }, { withCredentials: true });
+      });
 
       const { user: userData, token } = response.data;
       localStorage.setItem("token", token);
+      setAuthToken(token);
       setUser(userData);
       return { success: true };
     } catch (err) {
@@ -73,11 +85,12 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(`${API_BASE_URL}/api/logout`, {}, { withCredentials: true });
+      await axios.post(`${API_BASE_URL}/api/logout`);
     } catch (err) {
       console.error("Logout error:", err);
     }
     localStorage.removeItem("token");
+    setAuthToken(null);
     setUser(null);
   };
 

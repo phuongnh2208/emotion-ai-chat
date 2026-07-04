@@ -30,13 +30,15 @@ const ProtectedApp = () => {
     <ProtectedRoute>
       <div className="app-shell">
         <PlayfulBackground />
-        <div style={{ display:"block",position: "fixed", top: 20, right: 24, zIndex: 50 }}>
-          <UserMenu />
-        </div>
 
         <div className="app-layout">
           <section className="panel-left">
-            <Camera onEmotionDetected={handleEmotionDetected} />
+            <div className="camera-stack">
+              <Camera onEmotionDetected={handleEmotionDetected} />
+              <div className="camera-stack__menu">
+                <UserMenu />
+              </div>
+            </div>
           </section>
           <section className="panel-right">
             <ChatBox emotion={emotion} />
@@ -82,11 +84,6 @@ const AppContent = () => {
                 </div>
               }
             >
-              <div
-                style={{ position: "fixed", top: 20, right: 24, zIndex: 50 }}
-              >
-                <UserMenu />
-              </div>
               <ScratchGamePage />
             </Suspense>
           </ProtectedRoute>

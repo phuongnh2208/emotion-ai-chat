@@ -8,6 +8,7 @@
   padding: 26px 22px;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 48px);
   border: 5px solid var(--blue);
 
   border-radius: var(--radius-lg);
@@ -99,8 +100,18 @@
   text-align: center;
 }
 
+.guide-panel__footer {
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.guide-panel__footer .user-menu {
+  width: 100%;
+}
+
 @media (max-width: 1024px) {
   .guide-panel {
     width: 100%;
+    height: auto;
   }
 }

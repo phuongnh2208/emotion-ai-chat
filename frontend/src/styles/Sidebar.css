@@ -8,7 +8,7 @@
   padding: 28px 22px;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 48px);
+  height: calc(100vh - 48px);
   border: 5px solid var(--blue);
 
   border-radius: var(--radius-lg);
@@ -111,6 +111,6 @@
 @media (max-width: 1024px) {
   .game-sidebar {
     width: 100%;
-    max-height: none;
+    height: auto;
   }
 }

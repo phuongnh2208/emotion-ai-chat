@@ -1,13 +1,13 @@
 .game-page {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
-  align-items: flex-start;
+  align-items: stretch;
   padding: 24px;
   background: var(--bg-primary);
   gap: 24px;
   min-height: 100vh;
   background: var(--bg-primary);
-  
 }
 
 
@@ -22,8 +22,8 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  
-border: 5px solid var(--blue);
+  height: calc(100vh - 48px);
+  border: 5px solid var(--blue);
 
   border-radius: var(--radius-lg);
 }
@@ -31,6 +31,10 @@ border: 5px solid var(--blue);
 @media (max-width: 1200px) {
   .game-page {
     flex-wrap: wrap;
+  }
+
+  .game-page__center {
+    height: auto;
   }
 }
 

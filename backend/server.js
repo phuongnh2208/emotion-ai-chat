@@ -18,19 +18,15 @@ const JWT_EXPIRES_IN = "7d";
 const users = [];
 
 // Middleware
-app.use(cors({
-  origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-    ],
-  credentials: true
-}));
+app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(cookieParser());
 
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
-  const token = req.cookies.token;
+  const authHeader = req.headers.authorization || "";
+  const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+  const token = bearerToken || req.cookies.token;
 
   if (!token) {
     return res.status(401).json({ error: "Access token required" });
@@ -171,7 +167,7 @@ const groq = GROQ_API_KEY ? new Groq({ apiKey: GROQ_API_KEY }) : null;
 const GROQ_MODEL = "llama-3.3-70b-specdec";
 const RETRY_DELAY_MS = 2000;
 
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(express.json());
 
 const EMOTION_VI = {

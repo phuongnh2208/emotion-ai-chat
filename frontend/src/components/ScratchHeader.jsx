@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/ScratchHeader.css";
-import UserMenu from "./UserMenu";
 
 export default function ScratchHeader({ title, subtitle, onBack }) {
   return (
