@@ -2,12 +2,164 @@ const path = require("path");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const Groq = require("groq-sdk");
 const { getFallbackReply } = require("./fallback");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-change-in-production";
+const JWT_EXPIRES_IN = "7d";
+
+// In-memory user storage (replace with database in production)
+const users = [];
+
+// Middleware
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+app.use(express.json());
+app.use(cookieParser());
+
+// Authentication middleware
+const authenticateToken = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ error: "Access token required" });
+  }
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: "Invalid or expired token" });
+    }
+    req.user = user;
+    next();
+  });
+};
+
+// Register endpoint
+app.post("/api/register", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: "Username, email, and password are required" });
+    }
+
+    // Check if user already exists
+    const existingUser = users.find(u => u.email === email || u.username === username);
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists with this email or username" });
+    }
+
+    // Hash password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Create user
+    const newUser = {
+      id: users.length + 1,
+      username,
+      email,
+      password: hashedPassword,
+      createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: newUser.id, username: newUser.username, email: newUser.email },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRES_IN }
+    );
+
+    // Set cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
+    // Return user without password
+    const { password: _, ...userWithoutPassword } = newUser;
+    res.status(201).json({ user: userWithoutPassword, token });
+  } catch (error) {
+    console.error("Register error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Login endpoint
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    // Find user
+    const user = users.find(u => u.email === email);
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    // Verify password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, username: user.username, email: user.email },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRES_IN }
+    );
+
+    // Set cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
+    // Return user without password
+    const { password: _, ...userWithoutPassword } = user;
+    res.json({ user: userWithoutPassword, token });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Logout endpoint
+app.post("/api/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax"
+  });
+  res.json({ message: "Logged out successfully" });
+});
+
+// Get current user (protected route)
+app.get("/api/me", authenticateToken, (req, res) => {
+  const user = users.find(u => u.id === req.user.id);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  const { password: _, ...userWithoutPassword } = user;
+  res.json({ user: userWithoutPassword });
+});
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
@@ -137,7 +289,8 @@ async function callGroq(emotion, history = []) {
   }
 }
 
-app.post("/chat", async (req, res) => {
+// Protected chat endpoint
+app.post("/chat", authenticateToken, async (req, res) => {
   const { emotion, history = [] } = req.body;
 
   if (!emotion) {
@@ -160,7 +313,7 @@ app.post("/chat", async (req, res) => {
   } catch (err) {
     console.error("Groq error:", err.message);
     const message = getFallbackReply(emotion, history);
-    
+
     const isRateLimit = err.message.includes("429") || err.message.includes("rate limit");
     res.json({
       message,
