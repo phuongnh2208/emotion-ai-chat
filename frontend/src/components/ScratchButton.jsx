@@ -1,17 +1,17 @@
-const SCRATCH_URL =
-  "https://scratch.mit.edu/projects/editor/?tutorial=getStarted";
+import { useNavigate } from "react-router-dom";
 
 export default function ScratchButton() {
+  const navigate = useNavigate();
+
   return (
     <div className="scratch-btn-wrap">
-      <a
-        href={SCRATCH_URL}
-        target="_blank"
-        rel="noreferrer"
+      <button
+        type="button"
         className="scratch-btn"
+        onClick={() => navigate("/game")}
       >
         🎮 Chơi với Larry
-      </a>
+      </button>
     </div>
   );
 }

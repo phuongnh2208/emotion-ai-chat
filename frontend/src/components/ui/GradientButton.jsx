@@ -1,5 +1,5 @@
 import React from 'react';
-import './GradientButton.css';
+import '../../styles/GradientButton.css';
 
 const GradientButton = ({
   children,

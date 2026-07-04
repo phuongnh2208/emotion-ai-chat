@@ -1,12 +1,23 @@
-import React, { useCallback, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { Suspense, useCallback, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import AuthPage from "./components/AuthPage";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Camera from "./components/Camera";
 import ChatBox from "./components/ChatBox";
 import PlayfulBackground from "./components/PlayfulBackground";
+import UserMenu from "./components/UserMenu";
 import "./styles/larry.css";
+
+const ScratchGamePage = React.lazy(
+  () => import("./components/ScratchGamePage"),
+);
 
 const ProtectedApp = () => {
   const [emotion, setEmotion] = useState(null);
@@ -19,6 +30,10 @@ const ProtectedApp = () => {
     <ProtectedRoute>
       <div className="app-shell">
         <PlayfulBackground />
+        <div style={{ display:"block",position: "fixed", top: 20, right: 24, zIndex: 50 }}>
+          <UserMenu />
+        </div>
+
         <div className="app-layout">
           <section className="panel-left">
             <Camera onEmotionDetected={handleEmotionDetected} />
@@ -48,11 +63,34 @@ const AppContent = () => {
     <Routes>
       <Route
         path="/login"
-        element={isAuthenticated ? <Navigate to="/" replace /> : <AuthPage />}
+        element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
       />
+
       <Route
         path="/register"
-        element={isAuthenticated ? <Navigate to="/" replace /> : <AuthPage />}
+        element={isAuthenticated ? <Navigate to="/" replace /> : <Register />}
+      />
+      <Route
+        path="/game"
+        element={
+          <ProtectedRoute>
+            <Suspense
+              fallback={
+                <div className="loading-screen">
+                  <div className="spinner"></div>
+                  <p>Đang mở Scratch...</p>
+                </div>
+              }
+            >
+              <div
+                style={{ position: "fixed", top: 20, right: 24, zIndex: 50 }}
+              >
+                <UserMenu />
+              </div>
+              <ScratchGamePage />
+            </Suspense>
+          </ProtectedRoute>
+        }
       />
       <Route path="/" element={<ProtectedApp />} />
       <Route path="*" element={<Navigate to="/" replace />} />
