@@ -24,10 +24,6 @@ export default function GuidePanel({ instructions, onRate }) {
         <span className="guide-panel__sparkle guide-panel__sparkle--2">⭐</span>
         <p className="guide-panel__caption">Mình luôn sẵn sàng giúp bạn!</p>
       </div>
-
-      <GradientButton fullWidth rightIcon="❤️" onClick={onRate}>
-        Đánh giá kịch bản
-      </GradientButton>
     </aside>
   );
 }

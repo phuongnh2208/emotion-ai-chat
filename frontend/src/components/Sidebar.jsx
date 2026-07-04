@@ -13,11 +13,6 @@ export default function Sidebar({
   return (
     <aside className="game-sidebar">
       <div className="game-sidebar__top">
-        <div className="game-sidebar__avatar">
-          <span role="img" aria-label="Larry">
-            🤖
-          </span>
-        </div>
         <h2 className="game-sidebar__title">Chơi với Larry</h2>
         <p className="game-sidebar__subtitle">Học · Hiểu · Hành động</p>
       </div>
@@ -39,11 +34,6 @@ export default function Sidebar({
           />
         ))}
       </div>
-
-      <GradientButton variant="outline" fullWidth onClick={onDiscoverMore}>
-        Khám phá thêm kịch bản
-      </GradientButton>
-
       <div className="game-sidebar__illustration">
         <div className="game-sidebar__glow" />
         <div className="game-sidebar__robot">🤖</div>
