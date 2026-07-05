@@ -13,7 +13,7 @@ const DEFAULT_SCENARIOS = [
     title: "KB1 - Cảm xúc của tôi",
     version: "v1.0",
     favorite: false,
-    projectId: "1105113583",
+    projectId: "1338263357",
     subtitle: "Một kịch bản nhẹ nhàng để khởi động và khám phá cảm xúc.",
     guide:
       "Nhấn nút phát để mở một starter project Scratch. Dùng danh sách bên trái để đổi kịch bản nhanh mà không phải rời khỏi màn hình.",
@@ -24,7 +24,7 @@ const DEFAULT_SCENARIOS = [
     title: "KB2 - Bắt nạt học đường",
     version: "v1.3",
     favorite: true,
-    projectId: "1338263357",
+    projectId: "1335121590",
     subtitle: "Quan sát tình huống rồi chọn cách phản ứng phù hợp.",
     guide:
       "Nếu nội dung Scratch chưa hiển thị ngay, bấm nút phát một lần để tải game. Nút tải lại sẽ cho phép mở lại kịch bản từ đầu.",
