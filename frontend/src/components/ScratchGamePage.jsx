@@ -10,7 +10,7 @@ const DEFAULT_SCENARIOS = [
   {
     id: "kb1",
     icon: "🎭",
-    title: "KB1 - Cảm xúc của tôi",
+    title: "KB1 - Không gian an toàn cùng Larry",
     version: "v1.0",
     favorite: false,
     projectId: "1338263357",
