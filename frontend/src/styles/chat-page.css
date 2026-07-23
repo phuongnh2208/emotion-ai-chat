@@ -1,0 +1,57 @@
+/* Chat Page Styles */
+.chat-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* No Emotion Message */
+.no-emotion-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Loading State */
+.chat-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  color: #666;
+}
+
+/* Error State */
+.chat-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  color: #e74c3c;
+  text-align: center;
+  padding: 20px;
+}
+
+.chat-error button {
+  padding: 10px 24px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.chat-error button:hover {
+  background: #2980b9;
+}

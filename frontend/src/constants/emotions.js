@@ -14,6 +14,11 @@ export const EMOTION_CONFIG = {
     label: "Larry thấy bạn đang tức giận",
     cssClass: "emotion-badge--angry",
   },
+  anxious: {
+    icon: "😰",
+    label: "Bạn có vẻ lo lắng",
+    cssClass: "emotion-badge--anxious",
+  },
   neutral: {
     icon: "😐",
     label: "Bạn đang bình thường",

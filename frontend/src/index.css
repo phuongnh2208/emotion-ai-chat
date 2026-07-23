@@ -1,3 +1,11 @@
+/* ========================================
+   BASE STYLES - Larry UI/UX
+   ======================================== */
+
+/* Import global styles which includes design-system.css */
+@import url("./styles/global.css");
+
+/* Additional base styles */
 * {
   box-sizing: border-box;
 }
@@ -10,7 +18,17 @@ body,
 }
 
 body {
-  font-family: "Fredoka", "Baloo 2", "Nunito", "Quicksand", sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
 }

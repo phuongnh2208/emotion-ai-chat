@@ -1,0 +1,201 @@
+.emotion-selection-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.emotion-selection-content {
+  max-width: 800px;
+  width: 100%;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.emotion-selection-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.emotion-selection-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emotion-selection-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+}
+
+.privacy-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+}
+
+.privacy-icon {
+  font-size: 1.2rem;
+}
+
+.privacy-text {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.emotion-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.emotion-button {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid transparent;
+  border-radius: 20px;
+  padding: 24px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.emotion-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.emotion-button:active {
+  transform: translateY(-2px);
+}
+
+.emotion-button--selected {
+  border-color: #667eea;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.emotion-button__icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.emotion-button__label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+}
+
+.emotion-text-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.emotion-text-input {
+  width: 100%;
+}
+
+.emotion-text-input__label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.emotion-text-input__textarea {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.3s ease;
+}
+
+.emotion-text-input__textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.emotion-text-input__textarea::placeholder {
+  color: #999999;
+}
+
+.emotion-selection-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.emotion-selection-actions .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.emotion-selection-actions .btn-primary:disabled:hover {
+  transform: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .emotion-selection-title {
+    font-size: 2rem;
+  }
+
+  .emotion-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .emotion-button {
+    padding: 20px 12px;
+  }
+
+  .emotion-button__icon {
+    font-size: 2.5rem;
+  }
+
+  .emotion-button__label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .emotion-selection-title {
+    font-size: 1.6rem;
+  }
+
+  .emotion-buttons-grid {
+    grid-template-columns: 1fr;
+  }
+}

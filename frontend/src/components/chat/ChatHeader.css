@@ -1,0 +1,121 @@
+/* Chat Header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Left Section */
+.chat-header-left {
+  flex: 0 0 auto;
+}
+
+.chat-header-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-header-back:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-2px);
+}
+
+.chat-header-back:active {
+  transform: translateX(-2px) scale(0.95);
+}
+
+/* Center Section */
+.chat-header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.chat-header-emotion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-header-emotion-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.chat-header-emotion-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chat-header-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.chat-header-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  line-height: 1.2;
+}
+
+/* Right Section */
+.chat-header-right {
+  flex: 0 0 auto;
+}
+
+.chat-header-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-header-clear:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.chat-header-clear:active {
+  transform: scale(0.95);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-header {
+    padding: 10px 12px;
+  }
+
+  .chat-header-title {
+    font-size: 1rem;
+  }
+
+  .chat-header-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .chat-header-emotion-icon {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,84 @@
+/* Anonymous Badge - Clear indicator for anonymous mode */
+
+.anonymous-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(135deg, #a8e6cf 0%, #58d96f 100%);
+  color: #1a1a2e;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 2px solid rgba(88, 217, 111, 0.3);
+  position: relative;
+  white-space: nowrap;
+}
+
+.anonymous-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: rgba(88, 217, 111, 0.5);
+}
+
+.anonymous-badge:active {
+  transform: translateY(0);
+}
+
+.anonymous-badge__icon {
+  font-size: 1.1rem;
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.anonymous-badge__text {
+  display: flex;
+  align-items: center;
+}
+
+/* Tooltip */
+.anonymous-badge__tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  color: #fff;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  max-width: 240px;
+  text-align: center;
+  line-height: 1.4;
+  z-index: var(--z-tooltip);
+  opacity: 0;
+  animation: fade-in 0.2s ease-out forwards;
+  pointer-events: none;
+}
+
+.anonymous-badge__tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #1a1a2e;
+}
+
+/* Focus styles for accessibility */
+.anonymous-badge:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .anonymous-badge {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--fs-xs);
+  }
+}
