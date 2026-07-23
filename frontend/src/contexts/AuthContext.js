@@ -3,7 +3,7 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "https://emotion-ai-chat.onrender.com";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 const setAuthToken = (token) => {
   if (token) {
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         setAuthToken(token);
         try {
           const response = await axios.get(`${API_BASE_URL}/api/me`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           setUser(response.data.user);
         } catch (err) {
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(`${API_BASE_URL}/api/register`, {
         username,
         email,
-        password
+        password,
       });
 
       const { user: userData, token } = response.data;
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/login`, {
         email,
-        password
+        password,
       });
 
       const { user: userData, token } = response.data;
@@ -92,6 +92,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setAuthToken(null);
     setUser(null);
+    // Navigate to landing page after logout
+    window.location.href = "/";
   };
 
   const value = {
@@ -101,14 +103,10 @@ export const AuthProvider = ({ children }) => {
     register,
     login,
     logout,
-    isAuthenticated: !!user
+    isAuthenticated: !!user,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

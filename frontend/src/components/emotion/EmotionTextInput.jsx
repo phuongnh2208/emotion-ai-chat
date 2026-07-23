@@ -70,31 +70,19 @@ const EmotionTextInput = ({ onEmotionDetected, onContinue }) => {
     return null;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (text.trim()) {
-      onContinue(text);
-    }
-  };
-
   return (
     <div className="emotion-text-input">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="emotion-text" className="emotion-text-input__label">
-          Tôi muốn chia sẻ bằng lời
-        </label>
-        <textarea
-          id="emotion-text"
-          className="emotion-text-input__textarea"
-          value={text}
-          onChange={handleTextChange}
-          placeholder="Hôm nay bạn cảm thấy thế nào?"
-          rows={4}
-        />
-        <button type="submit" className="btn-primary" disabled={!text.trim()}>
-          Tiếp tục
-        </button>
-      </form>
+      <label htmlFor="emotion-text" className="emotion-text-input__label">
+        Tôi muốn chia sẻ bằng lời
+      </label>
+      <textarea
+        id="emotion-text"
+        className="emotion-text-input__textarea"
+        value={text}
+        onChange={handleTextChange}
+        placeholder="Hôm nay bạn cảm thấy thế nào?"
+        rows={4}
+      />
     </div>
   );
 };

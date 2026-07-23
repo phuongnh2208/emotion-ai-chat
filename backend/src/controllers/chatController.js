@@ -28,9 +28,9 @@ const GREETING_MESSAGES = {
   happy: "Chào bạn! 👋\nLarry thấy hôm nay bạn có vẻ vui vẻ đấy!",
   sad: "Chào bạn! 👋\nLarry thấy hôm nay bạn có vẻ hơi buồn 😢",
   angry: "Chào bạn! 👋\nLarry thấy bạn có vẻ đang hơi tức giận 😤",
-  neutral: "Chào bạn! 👋\nLarry thấy bạn đang khá bình thường 😊",
-  surprised: "Chào bạn! 👋\nLarry thấy bạn có vẻ hơi ngạc nhiên 😲",
-  fearful: "Chào bạn! 👋\nLarry thấy bạn có vẻ hơi lo lắng 😨",
+  anxious: "Chào bạn! 👋\nLarry thấy bạn có vẻ đang lo lắng �",
+  neutral: "Chào bạn! 👋\nLarry thấy bạn đang khá bình thường �",
+  surprised: "Chào bạn! 👋\nLarry thấy bạn có vẻ hơi ngạc nhiên �",
   disgusted: "Chào bạn! 👋\nLarry thấy bạn có vẻ không thoải mái lắm.",
 };
 

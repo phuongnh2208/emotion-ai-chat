@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useSession } from "../../contexts/SessionContext";
 import { deleteChatHistory } from "../../services/chatService";
 import ConfirmationDialog from "./ConfirmationDialog";

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import {
   loadFaceApiModels,
@@ -17,6 +18,7 @@ export default function Camera({ onEmotionDetected, onStart, onStop }) {
   const intervalRef = useRef(null);
   const lastEmotionRef = useRef(null);
   const initialEmotionSentRef = useRef(false);
+  const navigate = useNavigate();
 
   const stopDetection = useCallback(() => {
     if (intervalRef.current) {
@@ -81,6 +83,8 @@ export default function Camera({ onEmotionDetected, onStart, onStop }) {
 
   const handleDeny = () => {
     setPermissionGranted(false);
+    // Navigate to start page if camera permission denied
+    navigate("/start");
   };
 
   if (!permissionGranted) {

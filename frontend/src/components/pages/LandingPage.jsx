@@ -6,7 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate("/emotion-selection");
+    navigate("/start");
   };
 
   const handleLogin = () => {

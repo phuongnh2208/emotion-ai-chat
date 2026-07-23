@@ -1,9 +1,10 @@
-import React, { Suspense, useCallback, useState } from "react";
+import React, { Suspense, useCallback, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { SessionProvider } from "./contexts/SessionContext";
@@ -14,8 +15,7 @@ import Camera from "./components/ui/Camera";
 import PlayfulBackground from "./components/ui/PlayfulBackground";
 import UserMenu from "./components/ui/UserMenu";
 import LandingPage from "./components/pages/LandingPage";
-import EmotionSelectionPage from "./components/pages/EmotionSelectionPage";
-import CameraOptionPage from "./components/pages/CameraOptionPage";
+import StartPage from "./components/pages/StartPage";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 import PrivacyBanner from "./components/ui/PrivacyBanner";
 import { ChatPage } from "./components/chat";
@@ -26,14 +26,8 @@ const ScratchGamePage = React.lazy(
   () => import("./components/ui/ScratchGamePage"),
 );
 
-// ProtectedApp now uses the new ChatPage component
-const ProtectedApp = () => {
-  const [emotion, setEmotion] = useState(null);
-
-  const handleEmotionDetected = useCallback((detectedEmotion) => {
-    setEmotion(detectedEmotion);
-  }, []);
-
+// ChatApp for direct chat access (from StartPage or after login)
+const ChatApp = () => {
   return (
     <ProtectedRoute>
       <div className="app-shell">
@@ -43,21 +37,14 @@ const ProtectedApp = () => {
         <div className="app-layout">
           <section className="panel-left">
             <div className="camera-stack">
-              <Camera onEmotionDetected={handleEmotionDetected} />
               <div className="camera-stack__menu">
                 <UserMenu />
               </div>
             </div>
           </section>
           <section className="panel-right">
-            {/* Use ChatPage with emotion prop */}
-            {emotion ? (
-              <ChatPage emotion={emotion} />
-            ) : (
-              <div className="no-emotion-message">
-                <p>Vui lòng chọn cảm xúc để bắt đầu trò chuyện</p>
-              </div>
-            )}
+            {/* ChatPage will read emotion from sessionStorage */}
+            <ChatPage />
           </section>
         </div>
       </div>
@@ -80,8 +67,7 @@ const AppContent = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/emotion-selection" element={<EmotionSelectionPage />} />
-      <Route path="/camera-option" element={<CameraOptionPage />} />
+      <Route path="/start" element={<StartPage />} />
       <Route
         path="/login"
         element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
@@ -112,7 +98,7 @@ const AppContent = () => {
         path="/chat"
         element={
           <ProtectedRoute requireAuth={false}>
-            <ProtectedApp />
+            <ChatApp />
           </ProtectedRoute>
         }
       />

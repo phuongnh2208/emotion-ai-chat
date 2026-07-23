@@ -37,7 +37,7 @@ const ChatBox = ({ emotion, method = "button" }) => {
   useEffect(() => {
     const initSession = async () => {
       if (!emotion) {
-        navigate("/emotion-selection");
+        navigate("/start");
         return;
       }
 
@@ -112,7 +112,7 @@ const ChatBox = ({ emotion, method = "button" }) => {
 
   // Handle going back
   const handleBack = () => {
-    navigate("/emotion-selection");
+    navigate("/start");
   };
 
   // Handle clearing chat
@@ -154,7 +154,7 @@ const ChatBox = ({ emotion, method = "button" }) => {
     return (
       <div className="chatbox-error">
         <p>Không thể kết nối: {error}</p>
-        <button onClick={() => navigate("/emotion-selection")}>Quay lại</button>
+        <button onClick={() => navigate("/start")}>Quay lại</button>
       </div>
     );
   }

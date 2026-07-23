@@ -21,14 +21,18 @@ export default function AuthInput({
   required = false,
   disabled = false,
   minLength,
+  icon,
 }) {
+  // Support both 'icon' and 'leftIcon' for flexibility
+  const displayLeftIcon = icon || leftIcon;
+
   return (
     <div className="form-group">
       {label && <label htmlFor={id}>{label}</label>}
       <div className="form-field-icon">
-        {leftIcon && (
+        {displayLeftIcon && (
           <span className="form-field-icon__left" aria-hidden="true">
-            {leftIcon}
+            {displayLeftIcon}
           </span>
         )}
         <input

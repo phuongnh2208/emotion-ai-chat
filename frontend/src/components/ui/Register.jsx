@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../../contexts/AuthContext";
 import AuthInput from "./AuthInput";
 import GradientButton from "./GradientButton";
 import PlayfulBackground from "./PlayfulBackground";
@@ -7,6 +9,7 @@ import "../../styles/AuthForms.css";
 
 const Register = ({ onSwitchToLogin }) => {
   const { register, error: authError } = useAuth();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +48,10 @@ const Register = ({ onSwitchToLogin }) => {
 
     const result = await register(username, email, password);
 
-    if (!result.success) {
+    if (result.success) {
+      // Navigate to chat page after successful registration
+      navigate("/chat");
+    } else {
       setError(result.error);
     }
 
@@ -85,7 +91,7 @@ const Register = ({ onSwitchToLogin }) => {
 
             <AuthInput
               id="username"
-              leftIcon="👤"
+              icon={<FaUser />}
               placeholder="Nhập họ và tên của bạn"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -101,7 +107,7 @@ const Register = ({ onSwitchToLogin }) => {
             <AuthInput
               id="email"
               type="email"
-              leftIcon="✉️"
+              icon={<FaEnvelope />}
               placeholder="Nhập email của bạn"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -117,9 +123,9 @@ const Register = ({ onSwitchToLogin }) => {
             <AuthInput
               id="password"
               type={showPassword ? "text" : "password"}
-              leftIcon="🔒"
-              rightIcon={showPassword ? "🙈" : "👁"}
-              onRightIconClick={() => setShowPassword(!showPassword)}
+              icon={<FaLock />}
+              rightIcon={showPassword ? <FaEyeSlash /> : <FaEye />}
+              onRightClick={() => setShowPassword(!showPassword)}
               placeholder="Nhập mật khẩu của bạn"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -135,11 +141,9 @@ const Register = ({ onSwitchToLogin }) => {
             <AuthInput
               id="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
-              leftIcon="🔒"
-              rightIcon={showConfirmPassword ? "🙈" : "👁"}
-              onRightIconClick={() =>
-                setShowConfirmPassword(!showConfirmPassword)
-              }
+              icon={<FaLock />}
+              rightIcon={showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              onRightClick={() => setShowConfirmPassword(!showConfirmPassword)}
               placeholder="Nhập lại mật khẩu của bạn"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}

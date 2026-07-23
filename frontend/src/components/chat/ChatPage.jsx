@@ -1,31 +1,65 @@
-import React from "react";
-import { useLocation, Navigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Navigate } from "react-router-dom";
 import ChatBox from "./ChatBox";
 
 /**
  * ChatPage Component
  * Page wrapper for the chat interface
- * Can receive emotion and method from:
- * - Direct props (for use in ProtectedApp)
- * - URL search params (?emotion=happy&method=camera)
- * - Location state (from navigation)
+ * Reads emotion from sessionStorage or props
  */
 const ChatPage = ({ emotion: propEmotion, method: propMethod }) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const [emotion, setEmotion] = useState(propEmotion || null);
+  const [method, setMethod] = useState(propMethod || "button");
+  const [isLoading, setIsLoading] = useState(true);
+  const loadedRef = useRef(false);
 
-  // Priority: props > URL params > location state
-  const emotion =
-    propEmotion || searchParams.get("emotion") || location.state?.emotion;
-  const method =
-    propMethod ||
-    searchParams.get("method") ||
-    location.state?.method ||
-    "button";
+  useEffect(() => {
+    // Only run once
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+
+    // Try to get emotion from sessionStorage if not provided as prop
+    if (!emotion) {
+      try {
+        const storedEmotion = sessionStorage.getItem("selectedEmotion");
+        if (storedEmotion) {
+          const emotionData = JSON.parse(storedEmotion);
+          setEmotion(emotionData.emotion);
+          // Clear after reading
+          sessionStorage.removeItem("selectedEmotion");
+        }
+      } catch (err) {
+        console.error("Error reading from sessionStorage:", err);
+      }
+    }
+
+    // Get camera option from sessionStorage
+    try {
+      const cameraOption = sessionStorage.getItem("cameraOption");
+      if (cameraOption) {
+        setMethod(cameraOption);
+        // Clear after reading
+        sessionStorage.removeItem("cameraOption");
+      }
+    } catch (err) {
+      console.error("Error reading camera option:", err);
+    }
+
+    setIsLoading(false);
+  }, []); // Empty dependency - only run once on mount
+
+  if (isLoading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>Đang tải...</p>
+      </div>
+    );
+  }
 
   if (!emotion) {
-    // Redirect to emotion selection if no emotion provided
-    return <Navigate to="/emotion" replace />;
+    // Redirect to start page if no emotion provided
+    return <Navigate to="/start" replace />;
   }
 
   return (

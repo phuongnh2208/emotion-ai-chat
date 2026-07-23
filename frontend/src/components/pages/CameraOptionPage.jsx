@@ -8,19 +8,19 @@ const CameraOptionPage = () => {
   const handleCameraOption = () => {
     // Navigate to camera/chat with camera enabled
     sessionStorage.setItem("cameraOption", "camera");
-    navigate("/");
+    navigate("/chat");
   };
 
   const handleTextOption = () => {
     // Navigate to chat with text-only mode
     sessionStorage.setItem("cameraOption", "text");
-    navigate("/");
+    navigate("/chat");
   };
 
   const handleSkip = () => {
     // Skip directly to chat
     sessionStorage.setItem("cameraOption", "skip");
-    navigate("/");
+    navigate("/chat");
   };
 
   return (

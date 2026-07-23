@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import AuthInput from "./AuthInput";
 import GradientButton from "./GradientButton";
 import PlayfulBackground from "./PlayfulBackground";
@@ -10,6 +10,7 @@ import "../../styles/AuthForms.css";
 
 export default function Login() {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
 
@@ -32,7 +33,10 @@ export default function Login() {
 
     const result = await login(email, password);
 
-    if (!result.success) {
+    if (result.success) {
+      // Navigate to chat page after successful login
+      navigate("/chat");
+    } else {
       setError(result.error);
     }
 

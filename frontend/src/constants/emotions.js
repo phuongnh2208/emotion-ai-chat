@@ -29,11 +29,6 @@ export const EMOTION_CONFIG = {
     label: "Bạn có vẻ ngạc nhiên",
     cssClass: "emotion-badge--surprised",
   },
-  fearful: {
-    icon: "😨",
-    label: "Bạn có vẻ hơi lo lắng",
-    cssClass: "emotion-badge--fearful",
-  },
   disgusted: {
     icon: "😖",
     label: "Bạn có vẻ không thoải mái",

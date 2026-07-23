@@ -7,8 +7,7 @@
  * - deleteChatHistory() deletes a specific session
  */
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 /**
  * Start a new chat session
@@ -17,7 +16,7 @@ const API_BASE_URL =
  * @returns {Promise<Object>} Session data with greeting message
  */
 export const startChatSession = async (emotion, method = "button") => {
-  const response = await fetch(`${API_BASE_URL}/chat/session`, {
+  const response = await fetch(`${API_BASE_URL}/api/chat/session`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +40,7 @@ export const startChatSession = async (emotion, method = "button") => {
  * @returns {Promise<Object>} AI response
  */
 export const sendMessage = async (sessionId, message, emotion = null) => {
-  const response = await fetch(`${API_BASE_URL}/chat/message`, {
+  const response = await fetch(`${API_BASE_URL}/api/chat/message`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -63,12 +62,15 @@ export const sendMessage = async (sessionId, message, emotion = null) => {
  * @returns {Promise<Object>} Chat history
  */
 export const getChatHistory = async (sessionId) => {
-  const response = await fetch(`${API_BASE_URL}/chat/history/${sessionId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${API_BASE_URL}/api/chat/history/${sessionId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     const error = await response.json();
@@ -84,12 +86,15 @@ export const getChatHistory = async (sessionId) => {
  * @returns {Promise<Object>} Success message
  */
 export const deleteChatHistory = async (sessionId) => {
-  const response = await fetch(`${API_BASE_URL}/chat/history/${sessionId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${API_BASE_URL}/api/chat/history/${sessionId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     const error = await response.json();
@@ -105,7 +110,7 @@ export const deleteChatHistory = async (sessionId) => {
  * @returns {Promise<Object>} Success message with deleted count
  */
 export const deleteAllChatHistory = async () => {
-  const response = await fetch(`${API_BASE_URL}/chat/history`, {
+  const response = await fetch(`${API_BASE_URL}/api/chat/history`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -127,7 +132,7 @@ export const deleteAllChatHistory = async () => {
  * @returns {Promise<Object>} Session data
  */
 export const createSession = async (emotion, method = "button") => {
-  const response = await fetch(`${API_BASE_URL}/session/create`, {
+  const response = await fetch(`${API_BASE_URL}/api/session/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -149,7 +154,7 @@ export const createSession = async (emotion, method = "button") => {
  * @returns {Promise<Object>} Session data
  */
 export const getSession = async (sessionId) => {
-  const response = await fetch(`${API_BASE_URL}/session/${sessionId}`, {
+  const response = await fetch(`${API_BASE_URL}/api/session/${sessionId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -170,7 +175,7 @@ export const getSession = async (sessionId) => {
  * @returns {Promise<Object>} Success message
  */
 export const deleteSession = async (sessionId) => {
-  const response = await fetch(`${API_BASE_URL}/session/${sessionId}`, {
+  const response = await fetch(`${API_BASE_URL}/api/session/${sessionId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
